@@ -1,0 +1,22 @@
+export default [
+    {
+        "departmentId":1,
+        "departmentName":"Server"
+    },
+    {
+        "departmentId":2,
+        "departmentName":"Network"
+    },
+    {
+        "departmentId":3,
+        "departmentName":"Data"
+    },
+    {
+        "departmentId":4,
+        "departmentName":"Core"
+    },
+    {
+        "departmentId":5,
+        "departmentName":"SiteOps"
+    }
+]
