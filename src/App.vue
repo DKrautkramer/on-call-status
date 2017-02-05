@@ -3,9 +3,9 @@
         <h1>On Call Database</h1>
 
         <ul class="nav nav-tabs">
-            <router-link to="/" activeClass="active" tag="li" exact><a>View Current On Call</a></router-link>
-            <router-link to="/users" activeClass="active" tag="li"><a>Users</a></router-link>
-            <router-link to="/departments" activeClass="active" tag="li"><a>Departments</a></router-link>
+            <router-link to="/on-call-status/list" activeClass="active" tag="li" exact><a>View Current On Call</a></router-link>
+            <router-link to="/on-call-status/users" activeClass="active" tag="li"><a>Users</a></router-link>
+            <router-link to="/on-call-status/departments" activeClass="active" tag="li"><a>Departments</a></router-link>
         </ul>
 
         <router-view></router-view>
