@@ -1,9 +1,9 @@
 <template>
     <tr>
         <td scope="row">{{ currentUser.firstName + ' ' + currentUser.lastName }}</td>
-        <td><input type="radio" :checked="currentUser.primaryActive" @click="updateUser({userID: currentUser.id, primary: true, secondary: false})"></td>
-        <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUser({userID: currentUser.id, primary: false, secondary: true})"></td>
-        <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUser({userID: currentUser.id, primary: false, secondary: false})"></td>
+        <td><input type="radio" :checked="currentUser.primaryActive" @click="updateUser({'id': currentUser.id, 'primaryActive': true, 'secondaryActive': false})"></td>
+        <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUser({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': true})"></td>
+        <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUser({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': false})"></td>
     </tr>
 </template>
 
@@ -12,15 +12,7 @@
         props: ['currentUser'],
         methods: {
             updateUser(data) {
-                let dataArray = [
-                    {
-                        "id": data.userID,
-                        "primaryActive": data.primary,
-                        "secondaryActive": data.secondary
-                    }
-                ];
-
-                //eventBus.updateUser(dataArray);
+                this.$store.dispatch('editUser', data);
             }
         }
     }
