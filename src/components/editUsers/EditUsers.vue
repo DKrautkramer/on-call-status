@@ -14,9 +14,10 @@
                 </tr>
                 </thead>
                 <tbody>
-                <edit-user-row v-for="user in users" v-if="users.length > 0 && userBelongsToDepartment(user, department)" :currentUser="user"></edit-user-row>
+                    <edit-user-row v-for="user in users" v-if="users.length > 0 && userBelongsToDepartment(user, department)" :currentUser="user"></edit-user-row>
                 </tbody>
             </table>
+            <span class="warning" v-if="hasNoUsersInDept(department)">No users currently assigned to this department.</span>
         </div>
         <div v-else>No department data</div>
     </div>
@@ -37,6 +38,17 @@
         methods: {
             userBelongsToDepartment(user, department) {
                 return user.department.departmentName.toLowerCase() === department.departmentName.toLowerCase();
+            },
+            hasNoUsersInDept(dept) {
+                let hasUsers = false;
+
+                for(let i = 0; i < this.users.length; i++) {
+                    if(this.users[i].departmentId === dept.departmentId) {
+                        hasUsers = true;
+                    }
+                }
+
+                return !hasUsers;
             }
         },
         components: {
@@ -44,3 +56,9 @@
         }
     }
 </script>
+
+<style>
+    .warning {
+        color: red;
+    }
+</style>
