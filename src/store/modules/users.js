@@ -21,14 +21,33 @@ const mutations = {
             }
         }
 
-        state.allUsers = users;
         state.activeUsers = activeUsers;
+        localStorage.setItem('users', JSON.stringify(users));
+        state.allUsers = users;
+
+    },
+    'EDIT_USER' (state, userData) {
+        for(let i = 0; i < state.allUsers.length; i++) {
+            if(state.allUsers[i].id === userData.id) {
+                for(let key in userData) {
+                    if(state.allUsers[i].hasOwnProperty(key)) {
+                        state.allUsers[i][key] = userData[key];
+                    }
+                }
+
+                break;
+            }
+        }
     }
 };
 
 const actions = {
     initUserData: ({commit}) => {
-        commit('SET_USERS', users);
+        if(JSON.parse(localStorage.getItem('users'))) {
+            commit('SET_USERS', JSON.parse(localStorage.getItem('users')));
+        } else {
+            commit('SET_USERS', users);
+        }
     },
     addUser: ({commit}, userData) => {
 
@@ -37,7 +56,8 @@ const actions = {
 
     },
     editUser: ({commit}, userData) => {
-
+        commit('EDIT_USER', userData);
+        commit('SET_USERS', state.allUsers);
     }
 };
 
