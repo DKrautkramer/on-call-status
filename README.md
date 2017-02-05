@@ -1,8 +1,16 @@
-# on-call-status
+# On Call Status SPA with Vue.js
 
-> On call status display and admin
+Working [demo](https://dkrautkramer.github.io/on-call-status/)
 
-## Build Setup
+This is a demo of an on-call SPA that does the following: 
+- shows a list of active on call users
+- shows a list of all users and allows toggling on call status
+- shows a list of departments
+
+The demo uses local storage to get/save any changes to users or departments mainly for demo purposes.
+A default data set will be assigned if no local storage exists.
+
+## Local Build Setup
 
 ``` bash
 # install dependencies
@@ -15,4 +23,3 @@ npm run dev
 npm run build
 ```
 
-For detailed explanation on how things work, consult the [docs for vue-loader](http://vuejs.github.io/vue-loader).
