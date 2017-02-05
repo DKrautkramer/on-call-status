@@ -9,6 +9,30 @@ const mutations = {
         localStorage.setItem('departments', JSON.stringify(dept));
         state.departments = dept;
     },
+    'ADD_DEPT' (state, dept) {
+        let checkExists = false;
+
+        for(let i = 0; i < state.departments.length; i++) {
+            if(state.departments[i].departmentName.toLowerCase() === dept.toLowerCase()) {
+                checkExists = true;
+                break;
+            }
+        }
+
+        if(checkExists) {
+            alert('Could not add department.  A department with this name already exists.');
+        } else {
+            const newId = state.departments.sort((a,b) => { return b.departmentId - a.departmentId} )[0].departmentId + 1;
+            const newDept = {departmentId: newId, departmentName: dept};
+            state.departments.push(newDept);
+
+            // update local storage as well
+            let curLocalVal = JSON.parse(localStorage.getItem('departments'));
+            curLocalVal.push(newDept);
+            console.log(curLocalVal);
+            localStorage.setItem('departments', JSON.stringify(curLocalVal));
+        }
+    },
     'REMOVE_DEPT' (state, obj) {
         let userCheck = false;
 
@@ -36,8 +60,8 @@ const actions = {
             commit('SET_DEPT', departments);
         }
     },
-    addDept: ({commit}, userData) => {
-
+    addDept: ({commit}, dept) => {
+        commit('ADD_DEPT', dept);
     },
     removeDept: ({state, commit, rootState}, id) => {
         commit('REMOVE_DEPT', {id: id, allUsers: rootState.users.allUsers});
