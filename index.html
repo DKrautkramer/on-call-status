@@ -13,11 +13,18 @@
 
 <div id="app"></div>
 
-<!--
-<script src="dist/build.js"></script>
--->
+<script>
+    // fix for Github pages having a different build path then local development
+    var script = document.createElement('script');
 
-<script src="/on-call-status/dist/build.js"></script>
+    if(document.domain === 'dkrautkramer.github.io') {
+        script.src = '/on-call-status/dist/build.js';
+    } else {
+        script.src = 'dist/build.js';
+    }
+
+    document.body.appendChild(script);
+</script>
 
 </body>
 </html>
