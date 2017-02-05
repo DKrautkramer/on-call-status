@@ -26,11 +26,7 @@ const mutations = {
             const newDept = {departmentId: newId, departmentName: dept};
             state.departments.push(newDept);
 
-            // update local storage as well
-            let curLocalVal = JSON.parse(localStorage.getItem('departments'));
-            curLocalVal.push(newDept);
-            console.log(curLocalVal);
-            localStorage.setItem('departments', JSON.stringify(curLocalVal));
+            localStorage.setItem('departments', JSON.stringify(state.departments));
         }
     },
     'REMOVE_DEPT' (state, obj) {
@@ -48,6 +44,8 @@ const mutations = {
         } else {
             const idx = state.departments.map((o) => o.departmentId).indexOf(obj.id);
             state.departments.splice(idx, 1);
+
+            localStorage.setItem('departments', JSON.stringify(state.departments));
         }
     }
 };
