@@ -1,12 +1,14 @@
 <template>
     <tr>
-        <td scope="row">{{ currentUser.firstName + ' ' + currentUser.lastName }} - [ <span class="edit" @click="editMode = true">Edit</span> | <span class="delete_user">Delete</span> ]</td>
-        <td><input type="radio" :checked="currentUser.primaryActive" @click="updateUser({'id': currentUser.id, 'primaryActive': true, 'secondaryActive': false})"></td>
-        <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUser({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': true})"></td>
-        <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUser({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': false})"></td>
+        <td scope="row">{{ currentUser.firstName + ' ' + currentUser.lastName }} - [ <span class="edit" @click="editMode = true">Edit</span> | <span class="delete_user" @click="deleteUser(currentUser.id)">Delete</span> ]</td>
+        <td><input type="radio" :checked="currentUser.primaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': true, 'secondaryActive': false})"></td>
+        <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': true})"></td>
+        <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': false})"></td>
 
         <div class="edit_user_overlay" v-if="editMode" @click="editMode = false"></div>
         <div class="inner_overlay" v-if="editMode">
+            <span class="close_x" @click="editMode = false">X</span>
+
             <label for="firstName">First Name</label><br>
             <input type="text" id="firstName" v-model="editedUserData.firstName" :value="currentUser.firstName" /><br><br>
 
@@ -27,7 +29,7 @@
                 <option v-for="dept in departments" :selected="currentUser.department.departmentName === dept.departmentName" :value="dept.departmentName">{{ dept.departmentName }}</option>
             </select><br><br>
 
-            <input type="submit" value="Update User" />
+            <input type="submit" value="Update User" @click.prevent="updateUserInfo()" />
         </div>
     </tr>
 </template>
@@ -59,13 +61,20 @@
             }
         },
         methods: {
-            updateUser(data) {
+            updateUserOnCall(data) {
                 this.$store.dispatch('editUser', data);
+            },
+            updateUserInfo() {
+                this.$store.dispatch('editUser', this.editedUserData);
+                this.editMode = false;
             },
             updateUserDeptIds() {
                 let deptId = this.departments.filter((dept) => { return dept.departmentName === this.editedUserData.department.departmentName })[0].departmentId;
                 this.editedUserData.department.departmentId = deptId;
                 this.editedUserData.departmentId = deptId;
+            },
+            deleteUser(id) {
+                alert('This does not do anything yet, but soon will delete user with id: ' + id);
             }
         }
     }
@@ -105,5 +114,14 @@
         left: 50%;
         transform: translateX(-50%) translateY(-50%);
         z-index: 10;
+    }
+    .close_x {
+        float: right;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+        position: relative;
+        top: -15px;
+        right: -15px;
     }
 </style>
