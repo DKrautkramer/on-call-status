@@ -1,23 +1,26 @@
 <template>
     <div class="container">
-        <div v-if="departments.length > 0" v-for="department in departments">
-            <h3>{{ department.departmentName }}</h3>
+        <div class="dept_list_wrapper" v-if="departments.length > 0" v-for="department in departments">
+            <fieldset>
+                <legend>{{ department.departmentName }}</legend>
+                <!--<h3>{{ department.departmentName }}</h3>-->
 
-            <table class="table">
-                <caption>Edit On Call Assignments</caption>
-                <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Primary</th>
-                    <th>Secondary</th>
-                    <th>Not On Call</th>
-                </tr>
-                </thead>
-                <tbody>
-                    <edit-user-row v-for="user in users" v-if="users.length > 0 && userBelongsToDepartment(user, department)" :currentUser="user"></edit-user-row>
-                </tbody>
-            </table>
-            <span class="warning" v-if="hasNoUsersInDept(department)">No users currently assigned to this department.</span>
+                <table class="table">
+                    <caption>Edit On Call Assignments</caption>
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Primary</th>
+                        <th>Secondary</th>
+                        <th>Not On Call</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <edit-user-row v-for="user in users" v-if="users.length > 0 && userBelongsToDepartment(user, department)" :currentUser="user"></edit-user-row>
+                    </tbody>
+                </table>
+                <span class="warning" v-if="hasNoUsersInDept(department)">No users currently assigned to this department.</span>
+            </fieldset>
         </div>
         <div v-else>No department data</div>
     </div>
@@ -60,5 +63,21 @@
 <style>
     .warning {
         color: red;
+    }
+    .dept_list_wrapper {
+        margin: 30px 0;
+    }
+    legend {
+        width: auto;
+        margin: 0;
+        border: none;
+        padding: 0 5px;
+        font-weight: bold;
+    }
+    fieldset {
+        min-width: none;
+        padding: 10px;
+        margin: 0;
+        border: #999 solid 1px;
     }
 </style>
