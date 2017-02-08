@@ -5,49 +5,55 @@
         <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': true})"></td>
         <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': false})"></td>
 
-        <div class="edit_user_overlay" v-if="editMode" @click="editMode = false"></div>
-        <div class="inner_overlay" v-if="editMode">
-            <span class="close_x" @click="editMode = false">X</span>
+        <transition name="fade">
+            <div class="edit_user_overlay" v-if="editMode" @click="editMode = false"></div>
+        </transition>
 
-            <form>
+        <transition name="slide">
 
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <input type="text" id="firstName" class="form-control" v-model="editedUserData.firstName" :value="currentUser.firstName" />
-                </div>
+            <div class="inner_overlay" v-if="editMode">
+                <span class="close_x" @click="editMode = false">X</span>
 
-                <div class="form-group">
-                    <label for="lastName">Last Name</label>
-                    <input type="text" id="lastName" class="form-control" v-model="editedUserData.lastName" :value="currentUser.lastName" />
-                </div>
+                <form>
 
-                <div class="form-group">
-                    <label for="mobilePhone">Mobile Phone Number</label>
-                    <input type="text" id="mobilePhone" class="form-control" v-model="editedUserData.mobilePhone" :value="currentUser.mobilePhone" />
-                </div>
+                    <div class="form-group">
+                        <label for="firstName">First Name</label>
+                        <input type="text" id="firstName" class="form-control" v-model="editedUserData.firstName" :value="currentUser.firstName" />
+                    </div>
 
-                <div class="form-group">
-                    <label for="workPhone">Work Phone Number</label>
-                    <input type="text" id="workPhone" class="form-control" v-model="editedUserData.workPhone" :value="currentUser.workPhone" />
-                </div>
+                    <div class="form-group">
+                        <label for="lastName">Last Name</label>
+                        <input type="text" id="lastName" class="form-control" v-model="editedUserData.lastName" :value="currentUser.lastName" />
+                    </div>
 
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" class="form-control" v-model="editedUserData.email" :value="currentUser.email" />
-                </div>
+                    <div class="form-group">
+                        <label for="mobilePhone">Mobile Phone Number</label>
+                        <input type="text" id="mobilePhone" class="form-control" v-model="editedUserData.mobilePhone" :value="currentUser.mobilePhone" />
+                    </div>
 
-                <div class="form-group">
-                    <label for="department">Department</label>
-                    <select id="department" class="form-control" v-model="editedUserData.department.departmentName" @change="updateUserDeptIds()">
-                        <option v-for="dept in departments" :selected="currentUser.department.departmentName === dept.departmentName" :value="dept.departmentName">{{ dept.departmentName }}</option>
-                    </select>
-                </div>
+                    <div class="form-group">
+                        <label for="workPhone">Work Phone Number</label>
+                        <input type="text" id="workPhone" class="form-control" v-model="editedUserData.workPhone" :value="currentUser.workPhone" />
+                    </div>
 
-                <br>
-                <button type="submit" class="btn btn-primary btn-block" @click.prevent="updateUserInfo()">Update User</button>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" class="form-control" v-model="editedUserData.email" :value="currentUser.email" />
+                    </div>
 
-            </form>
-        </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <select id="department" class="form-control" v-model="editedUserData.department.departmentName" @change="updateUserDeptIds()">
+                            <option v-for="dept in departments" :selected="currentUser.department.departmentName === dept.departmentName" :value="dept.departmentName">{{ dept.departmentName }}</option>
+                        </select>
+                    </div>
+
+                    <br>
+                    <button type="submit" class="btn btn-primary btn-block" @click.prevent="updateUserInfo()">Update User</button>
+
+                </form>
+            </div>
+        </transition>
     </tr>
 </template>
 
@@ -141,5 +147,20 @@
         position: relative;
         top: -15px;
         right: -15px;
+    }
+
+    .fade-enter-active, .fade-leave-active {
+      transition: opacity .5s;
+    }
+    .fade-enter, .fade-leave-to /* .fade-leave-active in <2.1.8 */ {
+      opacity: 0;
+    }
+
+    .slide-enter-active, .slide-leave-active {
+      transition: all .5s ease;
+    }
+    .slide-enter, .slide-leave-to /* .fade-leave-active in <2.1.8 */ {
+      transform: translateX(-175px) translateY(-400px);
+      opacity: 0;
     }
 </style>
