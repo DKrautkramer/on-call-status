@@ -3,13 +3,13 @@
         <h3>Current Departments</h3>
 
         <div class="add_dept">
-            <span class="add_dept" @click="addDept()">Add Department +</span>
+            <button class="btn btn-primary" @click="addDept()">Add Department +</button>
         </div>
 
         <ul class="dept_list">
             <li v-for="dept in departments">
-                {{ dept.departmentName }}
-                <span class="delete" @click="removeDept(dept.departmentId)">Delete</span>
+                <span class="dept_name">{{ dept.departmentName }}</span>
+                <button class="btn btn-danger btn-sm delete" @click="removeDept(dept.departmentId)">Delete</button>
             </li>
         </ul>
     </div>
@@ -57,33 +57,22 @@
         background: #fff;
         box-sizing: border-box;
         padding:5px 10px;
+        overflow: hidden;
+        font-size: 18px;
+    }
+    .dept_name {
+        vertical-align: text-top;
     }
     .dept_list li:nth-child(odd) {
         background: #F0F0F0;
     }
     .delete {
-        color: red;
-        cursor: pointer;
         float: right;
-    }
-    .delete:hover {
-        text-decoration: underline;
     }
     .add_dept {
         overflow: hidden;
         box-sizing: border-box;
         padding: 0 0 10px 0;
-    }
-    .add_dept span {
-        float: right;
-        color: blue;
-        cursor: pointer;
-        padding: 0;
-    }
-    .add_dept:hover {
-        text-decoration: underline;
-    }
-    .clear {
-        clear: both;
+        text-align: right;
     }
 </style>

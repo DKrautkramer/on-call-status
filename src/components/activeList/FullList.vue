@@ -3,37 +3,42 @@
         <div></div>
         <h2>Active List</h2>
 
-        <label for="callListSort">Sort By:</label>
-        <select id="callListSort" v-model="listSort">
-            <option value="dept">Department</option>
-            <option value="type">Type</option>
-            <option value="firstName">First Name</option>
-            <option value="lastName">Last Name</option>
-            <option value="email">Email</option>
-        </select>
+        <div class="form-group form-inline">
+            <label for="callListSort">Sort By:</label>
+            <select id="callListSort" class="form-control" v-model="listSort">
+                <option value="dept">Department</option>
+                <option value="type">Type</option>
+                <option value="firstName">First Name</option>
+                <option value="lastName">Last Name</option>
+                <option value="email">Email</option>
+            </select>
+        </div>
 
-        <table class="table">
-            <caption></caption>
-            <thead>
-            <tr>
-                <th>Dept. Name</th>
-                <th>Type</th>
-                <th>Name</th>
-                <th>Phone Number</th>
-                <th>Email</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-if="activeUsers.length > 0" v-for="user in sortedUsers">
-                <td scope="row">{{ user.department.departmentName }}</td>
-                <td>{{ user.activeStatus }}</td>
-                <td>{{ user.firstName + ' ' + user.lastName }}</td>
-                <td>Desk Phone: {{ user.workPhone }} <br> Mobile Phone: {{ user.mobilePhone }}</td>
-                <td>{{ user.email }}</td>
-            </tr>
-            <span v-else>No user data</span>
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped">
+                <caption></caption>
+                <thead>
+                <tr>
+                    <th>Dept. Name</th>
+                    <th>Type</th>
+                    <th>Name</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-if="activeUsers.length > 0" v-for="user in sortedUsers">
+                    <td scope="row">{{ user.department.departmentName }}</td>
+                    <td>{{ user.activeStatus }}</td>
+                    <td>{{ user.firstName + ' ' + user.lastName }}</td>
+                    <td>Desk Phone: {{ user.workPhone }} <br> Mobile Phone: {{ user.mobilePhone }}</td>
+                    <td>{{ user.email }}</td>
+                </tr>
+                <span v-else>No user data</span>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </template>
 

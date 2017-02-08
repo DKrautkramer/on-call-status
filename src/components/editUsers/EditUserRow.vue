@@ -1,6 +1,10 @@
 <template>
     <tr>
-        <td scope="row">{{ currentUser.firstName + ' ' + currentUser.lastName }} - [ <span class="edit" @click="editMode = true">Edit</span> | <span class="delete_user" @click="deleteUser(currentUser.id)">Delete</span> ]</td>
+        <td scope="row">
+            <span class="user_name">{{ currentUser.firstName + ' ' + currentUser.lastName }}</span> -
+            <button class="btn btn-warning btn-xs" @click="editMode = true">Edit</button>
+            <button class="btn btn-danger btn-xs" @click="deleteUser(currentUser.id)">Delete</button>
+        </td>
         <td><input type="radio" :checked="currentUser.primaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': true, 'secondaryActive': false})"></td>
         <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': true})"></td>
         <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': false})"></td>
@@ -104,5 +108,16 @@
     .slide-enter, .slide-leave-to /* .fade-leave-active in <2.1.8 */ {
       transform: translateX(-175px) translateY(-400px);
       opacity: 0;
+    }
+    @media only screen
+        and (min-device-width: 414px)
+        and (max-device-width: 736px)
+        and (-webkit-min-device-pixel-ratio: 3)
+        and (orientation: portrait) {
+
+        .user_name {
+            display: block;
+        }
+
     }
 </style>

@@ -1,25 +1,30 @@
 <template>
     <div class="container">
-        <span @click="toggleAddUserMode(true)">Add User +</span>
+        <div class="add_user_wrapper">
+            <button class="btn btn-primary" @click="toggleAddUserMode(true)">Add New User +</button>
+        </div>
+
         <div class="dept_list_wrapper" v-if="departments.length > 0" v-for="department in departments">
             <fieldset>
                 <legend>{{ department.departmentName }}</legend>
                 <!--<h3>{{ department.departmentName }}</h3>-->
-
-                <table class="table">
-                    <caption>Edit On Call Assignments</caption>
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Primary</th>
-                        <th>Secondary</th>
-                        <th>Not On Call</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <div class="table-response">
+                    <table class="table table-striped">
+                        <caption>Edit On Call Assignments</caption>
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Primary</th>
+                            <th>Secondary</th>
+                            <th>Not On Call</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         <edit-user-row v-for="user in users" v-if="users.length > 0 && userBelongsToDepartment(user, department)" :currentUser="user"></edit-user-row>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
+
                 <span class="warning" v-if="hasNoUsersInDept(department)">No users currently assigned to this department.</span>
             </fieldset>
         </div>
@@ -69,7 +74,7 @@
         color: red;
     }
     .dept_list_wrapper {
-        margin: 30px 0;
+        margin: 10px 0 40px 0;
     }
     legend {
         width: auto;
@@ -83,5 +88,10 @@
         padding: 10px;
         margin: 0;
         border: #999 solid 1px;
+    }
+    .add_user_wrapper {
+        box-sizing: border-box;
+        padding: 20px 0 0 0;
+        text-align: right;
     }
 </style>
