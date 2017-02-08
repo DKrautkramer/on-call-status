@@ -23,10 +23,10 @@ const mutations = {
             }
         }
 
-        state.activeUsers = activeUsers;
-        localStorage.setItem('users', JSON.stringify(users));
         state.allUsers = users;
+        state.activeUsers = activeUsers;
 
+        localStorage.setItem('users', JSON.stringify(users));
     },
     'EDIT_USER' (state, userData) {
         for(let i = 0; i < state.allUsers.length; i++) {
@@ -44,6 +44,10 @@ const mutations = {
     'ADD_USER' (state, userData) {
         userData.id = state.allUsers.sort((a,b) => { return b.id - a.id })[0].id + 1;
         state.allUsers.push(userData);
+    },
+    'REMOVE_USER' (state, userId) {
+        const idx = state.allUsers.map(function(o) { return o.id; }).indexOf(userId);
+        state.allUsers.splice(idx, 1);
     },
     'SET_ADD_USER_MODE' (state, bool) {
         state.addUserMode = bool;
@@ -63,7 +67,8 @@ const actions = {
         commit('SET_USERS', state.allUsers);
     },
     removeUser: ({commit}, id) => {
-
+        commit('REMOVE_USER', id);
+        commit('SET_USERS', state.allUsers);
     },
     editUser: ({commit}, userData) => {
         commit('EDIT_USER', userData);

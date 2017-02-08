@@ -37,7 +37,10 @@
                 this.$store.dispatch('editUser', data);
             },
             deleteUser(id) {
-                alert('This does not do anything yet, but soon will delete user with id: ' + id);
+                const check = confirm('Are you sure you want to delete this user?');
+                if (check) {
+                    this.$store.dispatch('removeUser', id);
+                }
             },
             updateEditMode(val) {
                 this.editMode = val;
