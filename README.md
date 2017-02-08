@@ -2,7 +2,7 @@
 
 Working [demo](https://dkrautkramer.github.io/on-call-status/)
 
-## What is Does
+## What it Does
 
 This is a demo of an on-call SPA that does the following: 
 - shows a list of active on call users
