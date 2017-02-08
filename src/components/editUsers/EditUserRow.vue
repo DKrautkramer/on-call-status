@@ -9,27 +9,44 @@
         <div class="inner_overlay" v-if="editMode">
             <span class="close_x" @click="editMode = false">X</span>
 
-            <label for="firstName">First Name</label><br>
-            <input type="text" id="firstName" v-model="editedUserData.firstName" :value="currentUser.firstName" /><br><br>
+            <form>
 
-            <label for="lastName">Last Name</label><br>
-            <input type="text" id="lastName" v-model="editedUserData.lastName" :value="currentUser.lastName" /><br><br>
+                <div class="form-group">
+                    <label for="firstName">First Name</label>
+                    <input type="text" id="firstName" class="form-control" v-model="editedUserData.firstName" :value="currentUser.firstName" />
+                </div>
 
-            <label for="mobilePhone">Mobile Phone Number</label><br>
-            <input type="text" id="mobilePhone" v-model="editedUserData.mobilePhone" :value="currentUser.mobilePhone" /><br><br>
+                <div class="form-group">
+                    <label for="lastName">Last Name</label>
+                    <input type="text" id="lastName" class="form-control" v-model="editedUserData.lastName" :value="currentUser.lastName" />
+                </div>
 
-            <label for="workPhone">Work Phone Number</label><br>
-            <input type="text" id="workPhone" v-model="editedUserData.workPhone" :value="currentUser.workPhone" /><br><br>
+                <div class="form-group">
+                    <label for="mobilePhone">Mobile Phone Number</label>
+                    <input type="text" id="mobilePhone" class="form-control" v-model="editedUserData.mobilePhone" :value="currentUser.mobilePhone" />
+                </div>
 
-            <label for="email">Email Address</label><br>
-            <input type="email" id="email" v-model="editedUserData.email" :value="currentUser.email" /><br><br>
+                <div class="form-group">
+                    <label for="workPhone">Work Phone Number</label>
+                    <input type="text" id="workPhone" class="form-control" v-model="editedUserData.workPhone" :value="currentUser.workPhone" />
+                </div>
 
-            <label for="department">Department</label><br>
-            <select id="department" v-model="editedUserData.department.departmentName" @change="updateUserDeptIds()">
-                <option v-for="dept in departments" :selected="currentUser.department.departmentName === dept.departmentName" :value="dept.departmentName">{{ dept.departmentName }}</option>
-            </select><br><br>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" class="form-control" v-model="editedUserData.email" :value="currentUser.email" />
+                </div>
 
-            <input type="submit" value="Update User" @click.prevent="updateUserInfo()" />
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <select id="department" class="form-control" v-model="editedUserData.department.departmentName" @change="updateUserDeptIds()">
+                        <option v-for="dept in departments" :selected="currentUser.department.departmentName === dept.departmentName" :value="dept.departmentName">{{ dept.departmentName }}</option>
+                    </select>
+                </div>
+
+                <br>
+                <button type="submit" class="btn btn-primary btn-block" @click.prevent="updateUserInfo()">Update User</button>
+
+            </form>
         </div>
     </tr>
 </template>
@@ -107,6 +124,7 @@
         z-index: 5;
     }
     .inner_overlay {
+        min-width: 350px;
         padding: 25px;
         background: #fff;
         position: fixed;
