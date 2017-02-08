@@ -10,14 +10,40 @@
 
         <router-view></router-view>
 
+        <transition name="fade">
+            <div class="edit_user_overlay" v-if="addUserMode" @click="toggleAddUserMode(false)"></div>
+        </transition>
+
+        <transition name="slide">
+            <div class="inner_overlay" v-if="addUserMode">
+                <span class="close_x" @click="toggleAddUserMode(false)">X</span>
+                <add-user-form></add-user-form>
+            </div>
+        </transition>
+
     </div>
 </template>
 
 <script>
+    import AddUserForm from './components/editUsers/AddUserForm.vue';
+
     export default {
+        computed: {
+            addUserMode() {
+                return this.$store.getters.addUserMode;
+            }
+        },
+        methods: {
+            toggleAddUserMode(bool) {
+                this.$store.dispatch('setAddUserMode', bool);
+            }
+        },
         created() {
             this.$store.dispatch('initUserData');
             this.$store.dispatch('initDeptData');
+        },
+        components: {
+            addUserForm: AddUserForm
         }
     }
 </script>

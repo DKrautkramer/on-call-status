@@ -1,5 +1,6 @@
 <template>
     <div class="container">
+        <span @click="toggleAddUserMode(true)">Add User +</span>
         <div class="dept_list_wrapper" v-if="departments.length > 0" v-for="department in departments">
             <fieldset>
                 <legend>{{ department.departmentName }}</legend>
@@ -52,6 +53,9 @@
                 }
 
                 return !hasUsers;
+            },
+            toggleAddUserMode(bool) {
+                this.$store.dispatch('setAddUserMode', bool);
             }
         },
         components: {

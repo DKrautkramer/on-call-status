@@ -2,7 +2,9 @@ import users from '../../data/users';
 
 const state = {
     allUsers: [],
-    activeUsers: []
+    activeUsers: [],
+    addUserMode: false,
+    editUserMode: false
 };
 
 const mutations = {
@@ -38,6 +40,13 @@ const mutations = {
                 break;
             }
         }
+    },
+    'ADD_USER' (state, userData) {
+        userData.id = state.allUsers.sort((a,b) => { return b.id - a.id })[0].id + 1;
+        state.allUsers.push(userData);
+    },
+    'SET_ADD_USER_MODE' (state, bool) {
+        state.addUserMode = bool;
     }
 };
 
@@ -50,7 +59,8 @@ const actions = {
         }
     },
     addUser: ({commit}, userData) => {
-
+        commit('ADD_USER', userData);
+        commit('SET_USERS', state.allUsers);
     },
     removeUser: ({commit}, id) => {
 
@@ -58,6 +68,9 @@ const actions = {
     editUser: ({commit}, userData) => {
         commit('EDIT_USER', userData);
         commit('SET_USERS', state.allUsers);
+    },
+    setAddUserMode: ({commit}, bool) => {
+        commit('SET_ADD_USER_MODE', bool);
     }
 };
 
@@ -67,6 +80,9 @@ const getters = {
     },
     activeUsers: state => {
         return state.activeUsers;
+    },
+    addUserMode: state => {
+        return state.addUserMode;
     }
 };
 
