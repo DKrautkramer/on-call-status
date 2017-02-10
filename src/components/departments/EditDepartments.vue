@@ -34,13 +34,8 @@
                 this.$store.dispatch('setShowOverlay', true);
             },
             addDept() {
-                var newDept = prompt('Enter new department name');
-
-                 if(newDept) {
-                    this.$store.dispatch('addDept', newDept);
-                 } else {
-                    alert('No department added because field was blank.');
-                 }
+                this.$store.dispatch('setCurrentForm', 'new-dept-form');
+                this.$store.dispatch('setShowOverlay', true);
             }
         }
     }
