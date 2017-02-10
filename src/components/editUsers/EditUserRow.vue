@@ -2,36 +2,18 @@
     <tr>
         <td scope="row">
             <span class="user_name">{{ currentUser.firstName + ' ' + currentUser.lastName }}</span> -
-            <button class="btn btn-warning btn-xs" @click="editMode = true">Edit</button>
+            <button class="btn btn-warning btn-xs" @click="editUser(currentUser)">Edit</button>
             <button class="btn btn-danger btn-xs" @click="deleteUser(currentUser.id)">Delete</button>
         </td>
         <td><input type="radio" :checked="currentUser.primaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': true, 'secondaryActive': false})"></td>
         <td><input type="radio" :checked="currentUser.secondaryActive" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': true})"></td>
         <td><input type="radio" :checked="currentUser.activeStatus == 'n/a'" @click="updateUserOnCall({'id': currentUser.id, 'primaryActive': false, 'secondaryActive': false})"></td>
-
-        <transition name="fade">
-            <div class="edit_user_overlay" v-if="editMode" @click="editMode = false"></div>
-        </transition>
-
-        <transition name="slide">
-            <div class="inner_overlay" v-if="editMode">
-                <span class="close_x" @click="editMode = false">X</span>
-                <edit-user-form :currentUser="currentUser" :updateEditMode="updateEditMode"></edit-user-form>
-            </div>
-        </transition>
     </tr>
 </template>
 
 <script>
-    import EditUserForm from './EditUserForm.vue';
-
     export default {
         props: ['currentUser'],
-        data() {
-            return {
-                editMode: false
-            }
-        },
         methods: {
             updateUserOnCall(data) {
                 this.$store.dispatch('editUser', data);
@@ -42,12 +24,11 @@
                     this.$store.dispatch('removeUser', id);
                 }
             },
-            updateEditMode(val) {
-                this.editMode = val;
+            editUser(curUser) {
+                this.$store.dispatch('setCurrentEditUser', curUser);
+                this.$store.dispatch('setCurrentForm', 'edit-user-form');
+                this.$store.dispatch('setShowOverlay', true);
             }
-        },
-        components: {
-            editUserForm: EditUserForm
         }
     }
 </script>

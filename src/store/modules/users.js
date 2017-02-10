@@ -3,8 +3,7 @@ import users from '../../data/users';
 const state = {
     allUsers: [],
     activeUsers: [],
-    addUserMode: false,
-    editUserMode: false
+    currentEditUser: {}
 };
 
 const mutations = {
@@ -49,8 +48,8 @@ const mutations = {
         const idx = state.allUsers.map(function(o) { return o.id; }).indexOf(userId);
         state.allUsers.splice(idx, 1);
     },
-    'SET_ADD_USER_MODE' (state, bool) {
-        state.addUserMode = bool;
+    'SET_CURRENT_EDIT_USER' (state, curUser) {
+        state.currentEditUser = curUser;
     }
 };
 
@@ -74,8 +73,8 @@ const actions = {
         commit('EDIT_USER', userData);
         commit('SET_USERS', state.allUsers);
     },
-    setAddUserMode: ({commit}, bool) => {
-        commit('SET_ADD_USER_MODE', bool);
+    setCurrentEditUser: ({commit}, curUser) => {
+        commit('SET_CURRENT_EDIT_USER', curUser);
     }
 };
 
@@ -86,8 +85,8 @@ const getters = {
     activeUsers: state => {
         return state.activeUsers;
     },
-    addUserMode: state => {
-        return state.addUserMode;
+    currentEditUser: state => {
+        return state.currentEditUser;
     }
 };
 

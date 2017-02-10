@@ -8,8 +8,43 @@ import departments from './modules/departments';
 
 Vue.use(Vuex);
 
+const state = {
+    showOverlay: false,
+    currentForm: ''
+};
+
+const mutations = {
+    'SET_SHOW_OVERLAY' (state, bool) {
+        state.showOverlay = bool;
+    },
+    'SET_CURRENT_FORM' (state, str) {
+        state.currentForm = str;
+    }
+};
+
+const actions = {
+    setShowOverlay: ({commit}, bool) => {
+        commit('SET_SHOW_OVERLAY', bool);
+    },
+    setCurrentForm: ({commit}, str) => {
+        commit('SET_CURRENT_FORM', str);
+    }
+};
+
+const getters = {
+    showOverlay: state => {
+        return state.showOverlay;
+    },
+    currentForm: state => {
+        return state.currentForm;
+    }
+};
+
 export default new Vuex.Store({
-    //actions,
+    state,
+    mutations,
+    actions,
+    getters,
     modules: {
         users,
         departments

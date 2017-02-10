@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="add_user_wrapper">
-            <button class="btn btn-primary" @click="toggleAddUserMode(true)">Add New User +</button>
+            <button class="btn btn-primary" @click="showAddUserOverlay(true)">Add New User +</button>
         </div>
 
         <div class="dept_list_wrapper" v-if="departments.length > 0" v-for="department in departments">
@@ -59,8 +59,9 @@
 
                 return !hasUsers;
             },
-            toggleAddUserMode(bool) {
-                this.$store.dispatch('setAddUserMode', bool);
+            showAddUserOverlay(bool) {
+                this.$store.dispatch('setCurrentForm', 'add-user-form');
+                this.$store.dispatch('setShowOverlay', bool);
             }
         },
         components: {

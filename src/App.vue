@@ -11,13 +11,13 @@
         <router-view></router-view>
 
         <transition name="fade">
-            <div class="edit_user_overlay" v-if="addUserMode" @click="toggleAddUserMode(false)"></div>
+            <div class="edit_user_overlay" v-if="showOverlay" @click="hideOverlay()"></div>
         </transition>
 
         <transition name="slide">
-            <div class="inner_overlay" v-if="addUserMode">
-                <span class="close_x" @click="toggleAddUserMode(false)">X</span>
-                <add-user-form></add-user-form>
+            <div class="inner_overlay" v-if="showOverlay">
+                <span class="close_x" @click="hideOverlay()">X</span>
+                <component :is="currentForm"></component>
             </div>
         </transition>
 
@@ -26,16 +26,20 @@
 
 <script>
     import AddUserForm from './components/editUsers/AddUserForm.vue';
+    import EditUserForm from './components/editUsers/EditUserForm.vue';
 
     export default {
         computed: {
-            addUserMode() {
-                return this.$store.getters.addUserMode;
+            showOverlay() {
+                return this.$store.getters.showOverlay;
+            },
+            currentForm() {
+                return this.$store.getters.currentForm;
             }
         },
         methods: {
-            toggleAddUserMode(bool) {
-                this.$store.dispatch('setAddUserMode', bool);
+            hideOverlay() {
+                this.$store.dispatch('setShowOverlay', false);
             }
         },
         created() {
@@ -43,7 +47,8 @@
             this.$store.dispatch('initDeptData');
         },
         components: {
-            addUserForm: AddUserForm
+            addUserForm: AddUserForm,
+            editUserForm: EditUserForm
         }
     }
 </script>

@@ -41,27 +41,17 @@
 
 <script>
     export default{
-        props: ['currentUser', 'updateEditMode'],
         data() {
             return {
-                editedUserData: {
-                    mobilePhone: this.currentUser.mobilePhone,
-                    id: this.currentUser.id,
-                    department: {
-                       departmentId: this.currentUser.department.departmentId,
-                       departmentName: this.currentUser.department.departmentName
-                    },
-                    email: this.currentUser.email,
-                    firstName: this.currentUser.firstName,
-                    departmentId: this.currentUser.departmentId,
-                    lastName: this.currentUser.lastName,
-                    workPhone: this.currentUser.workPhone
-                }
+                editedUserData: {}
             }
         },
         computed: {
             departments() {
-               return this.$store.getters.departments;
+                return this.$store.getters.departments;
+            },
+            currentUser() {
+                return this.$store.getters.currentEditUser;
             }
         },
         methods: {
@@ -72,8 +62,23 @@
             },
             updateUserInfo() {
                 this.$store.dispatch('editUser', this.editedUserData);
-                this.updateEditMode(false);
+                this.$store.dispatch('setShowOverlay', false);
             }
+        },
+        created() {
+            this.editedUserData = {
+                    mobilePhone: this.currentUser.mobilePhone,
+                    id: this.currentUser.id,
+                    department: {
+                       departmentId: this.currentUser.department.id,
+                       departmentName: this.currentUser.department.departmentName
+                    },
+                    email: this.currentUser.email,
+                    firstName: this.currentUser.firstName,
+                    departmentId: this.currentUser.departmentId,
+                    lastName: this.currentUser.lastName,
+                    workPhone: this.currentUser.workPhone
+                }
         }
     }
 </script>

@@ -77,7 +77,7 @@
             },
             addNewUser() {
                 this.$store.dispatch('addUser', this.newUserData);
-                this.$store.dispatch('setAddUserMode', false);
+                this.$store.dispatch('setShowOverlay', false);
             }
         }
     }
