@@ -1,41 +1,41 @@
 <template>
-    <form>
+    <form @submit.prevent="updateUserInfo()">
         <span class="overlay_title">Edit User</span>
 
         <div class="form-group">
             <label for="firstName">First Name</label>
-            <input type="text" id="firstName" class="form-control" v-model="editedUserData.firstName" :value="currentUser.firstName" />
+            <input type="text" id="firstName" class="form-control" v-model="editedUserData.firstName" :value="currentUser.firstName" required/>
         </div>
 
         <div class="form-group">
             <label for="lastName">Last Name</label>
-            <input type="text" id="lastName" class="form-control" v-model="editedUserData.lastName" :value="currentUser.lastName" />
+            <input type="text" id="lastName" class="form-control" v-model="editedUserData.lastName" :value="currentUser.lastName" required/>
         </div>
 
         <div class="form-group">
             <label for="mobilePhone">Mobile Phone Number</label>
-            <input type="text" id="mobilePhone" class="form-control" v-model="editedUserData.mobilePhone" :value="currentUser.mobilePhone" />
+            <input type="text" id="mobilePhone" class="form-control" v-model="editedUserData.mobilePhone" :value="currentUser.mobilePhone" required/>
         </div>
 
         <div class="form-group">
             <label for="workPhone">Work Phone Number</label>
-            <input type="text" id="workPhone" class="form-control" v-model="editedUserData.workPhone" :value="currentUser.workPhone" />
+            <input type="text" id="workPhone" class="form-control" v-model="editedUserData.workPhone" :value="currentUser.workPhone" required/>
         </div>
 
         <div class="form-group">
             <label for="email">Email Address</label>
-            <input type="email" id="email" class="form-control" v-model="editedUserData.email" :value="currentUser.email" />
+            <input type="email" id="email" class="form-control" v-model="editedUserData.email" :value="currentUser.email" required/>
         </div>
 
         <div class="form-group">
             <label for="department">Department</label>
-            <select id="department" class="form-control" v-model="editedUserData.department.departmentName" @change="updateUserDeptIds()">
+            <select id="department" class="form-control" v-model="editedUserData.department.departmentName" @change="updateUserDeptIds()" required>
                 <option v-for="dept in departments" :selected="currentUser.department.departmentName === dept.departmentName" :value="dept.departmentName">{{ dept.departmentName }}</option>
             </select>
         </div>
 
         <br>
-        <button type="submit" class="btn btn-primary btn-block" @click.prevent="updateUserInfo()">Update User</button>
+        <button type="submit" class="btn btn-primary btn-block">Update User</button>
 
     </form>
 </template>
@@ -83,3 +83,9 @@
         }
     }
 </script>
+
+<style>
+    .errors {
+        color: red;
+    }
+</style>

@@ -1,5 +1,6 @@
 <template>
-    <form>
+    <form  @submit.prevent="addNewUser()">
+        <span class="overlay_title">Add New User</span>
 
         <div class="form-group">
             <label for="firstName">First Name</label>
@@ -34,7 +35,7 @@
         </div>
 
         <br>
-        <button type="submit" class="btn btn-primary btn-block" @click.prevent="addNewUser()">Add New User</button>
+        <button type="submit" class="btn btn-primary btn-block">Add New User</button>
 
     </form>
 </template>
