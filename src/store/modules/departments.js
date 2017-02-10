@@ -1,7 +1,8 @@
 import departments from '../../data/departments';
 
 const state = {
-    departments: []
+    departments: [],
+    curEditDept: ''
 };
 
 const mutations = {
@@ -47,6 +48,9 @@ const mutations = {
 
             localStorage.setItem('departments', JSON.stringify(state.departments));
         }
+    },
+    'SET_CUR_EDIT_DEPT' (state, deptId) {
+        state.curEditDept = deptId;
     }
 };
 
@@ -63,12 +67,18 @@ const actions = {
     },
     removeDept: ({state, commit, rootState}, id) => {
         commit('REMOVE_DEPT', {id: id, allUsers: rootState.users.allUsers});
+    },
+    setCurEditDept: ({commit}, deptId) => {
+        commit('SET_CUR_EDIT_DEPT', deptId);
     }
 };
 
 const getters = {
     departments: state => {
         return state.departments;
+    },
+    curEditDept: state => {
+        return state.curEditDept;
     }
 };
 

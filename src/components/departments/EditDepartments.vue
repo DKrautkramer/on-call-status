@@ -29,11 +29,9 @@
         },
         methods: {
             removeDept(id) {
-                let keepGoing = confirm('Are you sure you want to delete this department?');
-
-                if(keepGoing) {
-                    this.$store.dispatch('removeDept', id);
-                }
+                this.$store.dispatch('setCurEditDept', id);
+                this.$store.dispatch('setCurrentForm', 'delete-dept-form');
+                this.$store.dispatch('setShowOverlay', true);
             },
             addDept() {
                 var newDept = prompt('Enter new department name');
