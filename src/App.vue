@@ -29,6 +29,7 @@
     import EditUserForm from './components/editUsers/EditUserForm.vue';
     import DeleteDeptForm from './components/departments/DeleteDeptForm.vue';
     import NewDeptForm from './components/departments/NewDeptForm.vue';
+    import DeleteUserForm from './components/editUsers/DeleteUserForm.vue';
 
     export default {
         computed: {
@@ -52,7 +53,8 @@
             addUserForm: AddUserForm,
             editUserForm: EditUserForm,
             deleteDeptForm: DeleteDeptForm,
-            newDeptForm: NewDeptForm
+            newDeptForm: NewDeptForm,
+            deleteUserForm: DeleteUserForm
         }
     }
 </script>
