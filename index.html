@@ -13,7 +13,6 @@
 
 <div id="app"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/webshim/1.16.0/dev/polyfiller.js"></script>
 <script>
     // fix for Github pages having a different build path then local development
     var script = document.createElement('script');
@@ -25,11 +24,6 @@
     }
 
     document.body.appendChild(script);
-
-    // fix for Safari browser not acknowledging "required" input attribute (wtf)
-    webshim.activeLang('en');
-    webshims.polyfill('forms');
-    webshims.cfg.no$Switch = true;
 </script>
 
 </body>
