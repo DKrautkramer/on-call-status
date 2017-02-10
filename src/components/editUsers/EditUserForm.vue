@@ -1,5 +1,6 @@
 <template>
     <form>
+        <span class="overlay_title">Edit User</span>
 
         <div class="form-group">
             <label for="firstName">First Name</label>
